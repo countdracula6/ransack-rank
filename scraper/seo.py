@@ -1,5 +1,12 @@
 import requests
 from bs4 import BeautifulSoup
+from collections import Counter
+import re
+
+# Minimal English stopwords list
+STOPWORDS = set("""
+the is in and to of a an for with on at by it from this that be or as are was were but if not you your their its which has have can will do does had
+""".split())
 
 def analyze_seo(url):
     result = {
@@ -14,7 +21,8 @@ def analyze_seo(url):
         "canonical": None,
         "robots": None,
         "og_title": None,
-        "twitter_card": None
+        "twitter_card": None,
+        "top_keywords": {}
     }
 
     try:
@@ -36,9 +44,14 @@ def analyze_seo(url):
         result["h2_count"] = len(soup.find_all("h2"))
         result["h3_count"] = len(soup.find_all("h3"))
 
-        # Word count
+        # Text analysis
         text = soup.get_text(separator=" ")
-        result["word_count"] = len(text.split())
+        words = re.findall(r'\b[a-zA-Z]{3,}\b', text.lower())  # Only words with 3+ letters
+        filtered_words = [word for word in words if word not in STOPWORDS]
+        word_freq = Counter(filtered_words).most_common(10)
+
+        result["word_count"] = len(words)
+        result["top_keywords"] = dict(word_freq)
 
         # Images
         images = soup.find_all("img")
