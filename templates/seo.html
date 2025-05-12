@@ -25,6 +25,7 @@
 
     <form method="POST">
       <input type="text" name="url" placeholder="https://example.com" required>
+      <input type="text" name="keyword" placeholder="Optional keyword to check">
       <button type="submit">Analyze</button>
     </form>
 
@@ -58,6 +59,26 @@
             {% endfor %}
           </ol>
         {% endif %}
+
+        {% if result.keyword_density %}
+          <h3>📏 Keyword Density</h3>
+          <ul>
+            <li><strong>Keyword:</strong> "{{ result.keyword_density.keyword }}"</li>
+            <li><strong>Occurrences:</strong> {{ result.keyword_density.count }}</li>
+            <li><strong>Density:</strong> {{ result.keyword_density.percent }}%</li>
+            <li><strong>In Title:</strong> {{ result.keyword_density.tags.title }}</li>
+            <li><strong>In Description:</strong> {{ result.keyword_density.tags.description }}</li>
+            <li><strong>In H1:</strong> {{ result.keyword_density.tags.h1 }}</li>
+            <li><strong>In H2:</strong> {{ result.keyword_density.tags.h2 }}</li>
+            <li><strong>In H3:</strong> {{ result.keyword_density.tags.h3 }}</li>
+          </ul>
+        {% endif %}
+
+        {% if result.screenshot %}
+          <h3>🖼️ Page Screenshot</h3>
+          <img src="/{{ result.screenshot }}" alt="Screenshot" style="max-width:100%;border:1px solid #ccc;">
+        {% endif %}
+
       {% endif %}
     {% endif %}
   </div>

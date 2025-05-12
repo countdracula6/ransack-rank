@@ -12,8 +12,11 @@ def seo():
     result = None
     if request.method == "POST":
         url = request.form.get("url")
+        keyword = request.form.get("keyword") or None
+
         if url:
-            result = analyze_seo(url)
+            result = analyze_seo(url, target_keyword=keyword)
+
     return render_template("seo.html", result=result)
 
 if __name__ == "__main__":

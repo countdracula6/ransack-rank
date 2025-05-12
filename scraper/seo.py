@@ -8,7 +8,6 @@ from selenium import webdriver
 from selenium.webdriver.firefox.options import Options as FirefoxOptions
 from selenium.webdriver.firefox.service import Service
 
-# Simple English stopwords to filter noise
 STOPWORDS = set("""
 the is in and to of a an for with on at by it from this that be or as are was were but if not you your their its which has have can will do does had
 """.split())
@@ -29,7 +28,7 @@ def take_screenshot(url, filename):
         print("Screenshot error:", e)
         return None
 
-def analyze_seo(url):
+def analyze_seo(url, target_keyword=None):
     result = {
         "title": None,
         "description": None,
@@ -44,7 +43,8 @@ def analyze_seo(url):
         "og_title": None,
         "twitter_card": None,
         "top_keywords": {},
-        "screenshot": None
+        "screenshot": None,
+        "keyword_density": None
     }
 
     try:
@@ -53,6 +53,11 @@ def analyze_seo(url):
         }
         r = requests.get(url, headers=headers, timeout=15)
         soup = BeautifulSoup(r.text, "html.parser")
+
+        # Screenshot
+        domain = re.sub(r'\W+', '', url.replace("https://", "").replace("http://", ""))[:40]
+        filename = f"{domain}.png"
+        result["screenshot"] = take_screenshot(url, filename)
 
         # Title
         result["title"] = soup.title.string.strip() if soup.title else "N/A"
@@ -66,7 +71,7 @@ def analyze_seo(url):
         result["h2_count"] = len(soup.find_all("h2"))
         result["h3_count"] = len(soup.find_all("h3"))
 
-        # Word frequency
+        # Text content
         text = soup.get_text(separator=" ")
         words = re.findall(r'\b[a-zA-Z]{3,}\b', text.lower())
         filtered_words = [word for word in words if word not in STOPWORDS]
@@ -84,23 +89,38 @@ def analyze_seo(url):
         link_tag = soup.find("link", rel="canonical")
         result["canonical"] = link_tag["href"] if link_tag and link_tag.get("href") else "N/A"
 
-        # Robots meta
+        # Robots
         robots_tag = soup.find("meta", attrs={"name": "robots"})
         result["robots"] = robots_tag["content"] if robots_tag and robots_tag.get("content") else "N/A"
 
-        # Open Graph title
+        # Open Graph
         og_tag = soup.find("meta", property="og:title")
         result["og_title"] = og_tag["content"] if og_tag and og_tag.get("content") else "N/A"
 
-        # Twitter card type
+        # Twitter card
         tw_card = soup.find("meta", attrs={"name": "twitter:card"})
         result["twitter_card"] = tw_card["content"] if tw_card and tw_card.get("content") else "N/A"
 
-        # Screenshot
-        domain = re.sub(r'\W+', '', url.replace("https://", "").replace("http://", ""))[:40]
-        filename = f"{domain}.png"
-        screenshot_path = take_screenshot(url, filename)
-        result["screenshot"] = screenshot_path if screenshot_path else None
+        # Keyword Density Logic
+        if target_keyword:
+            keyword = target_keyword.lower().strip()
+            count = sum(1 for word in words if word == keyword)
+            percent = (count / len(words)) * 100 if words else 0
+
+            tag_hits = {
+                "title": keyword in result["title"].lower() if result["title"] else False,
+                "description": keyword in result["description"].lower() if result["description"] else False,
+                "h1": any(keyword in h.get_text(strip=True).lower() for h in soup.find_all("h1")),
+                "h2": any(keyword in h.get_text(strip=True).lower() for h in soup.find_all("h2")),
+                "h3": any(keyword in h.get_text(strip=True).lower() for h in soup.find_all("h3"))
+            }
+
+            result["keyword_density"] = {
+                "keyword": keyword,
+                "count": count,
+                "percent": round(percent, 2),
+                "tags": tag_hits
+            }
 
     except Exception as e:
         result["error"] = str(e)
