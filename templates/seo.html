@@ -7,8 +7,21 @@
 </head>
 <body>
 
+  <nav class="navbar">
+    <div class="nav-container">
+      <a href="/" class="nav-logo">Ransack-Rank</a>
+      <ul class="nav-links">
+        <li><a href="/" class="nav-item">Home</a></li>
+        <li><a href="/seo" class="nav-item active">SEO Analyzer</a></li>
+        <li><a href="#" class="nav-item">SERP Tracker</a></li>
+        <li><a href="#" class="nav-item">Compare</a></li>
+        <li><a href="#" class="nav-item">Export</a></li>
+      </ul>
+    </div>
+  </nav>
+
   <div class="container">
-    <h1>🔍 Ransack-Rank SEO Analyzer</h1>
+    <h1>🔍 SEO Analyzer</h1>
 
     <form method="POST">
       <input type="text" name="url" placeholder="https://example.com" required>
@@ -19,6 +32,8 @@
       {% if result.error %}
         <p style="color:red;">Error: {{ result.error }}</p>
       {% else %}
+        <button onclick="window.location.href='/seo'" class="back-btn">← Back</button>
+
         <h2>Analysis Results</h2>
         <ul>
           <li><strong>Title:</strong> {{ result.title }}</li>
@@ -45,7 +60,6 @@
         {% endif %}
       {% endif %}
     {% endif %}
-
   </div>
 
 </body>
