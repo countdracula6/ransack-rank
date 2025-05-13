@@ -1,9 +1,10 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8">
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Ransack-Rank | SEO Analyzer</title>
-  <link rel="stylesheet" href="/static/style.css">
+  <link rel="stylesheet" href="/static/style.css" />
 </head>
 <body>
 
@@ -13,9 +14,7 @@
       <ul class="nav-links">
         <li><a href="/" class="nav-item">Home</a></li>
         <li><a href="/seo" class="nav-item active">SEO Analyzer</a></li>
-        <li><a href="#" class="nav-item">SERP Tracker</a></li>
-        <li><a href="#" class="nav-item">Compare</a></li>
-        <li><a href="#" class="nav-item">Export</a></li>
+        <li><a href="/compare" class="nav-item">Compare</a></li>
       </ul>
     </div>
   </nav>
@@ -24,8 +23,8 @@
     <h1>🔍 SEO Analyzer</h1>
 
     <form method="POST">
-      <input type="text" name="url" placeholder="https://example.com" required>
-      <input type="text" name="keyword" placeholder="Optional keyword to check">
+      <input type="text" name="url" placeholder="https://example.com" required />
+      <input type="text" name="keyword" placeholder="Optional keyword to check" />
       <button type="submit">Analyze</button>
     </form>
 
@@ -35,7 +34,7 @@
       {% else %}
         <button onclick="window.location.href='/seo'" class="back-btn">← Back</button>
 
-        <h2>Analysis Results</h2>
+        <h2>Results</h2>
         <ul>
           <li><strong>Title:</strong> {{ result.title }}</li>
           <li><strong>Description:</strong> {{ result.description }}</li>
@@ -43,16 +42,16 @@
           <li><strong>H2 Tags:</strong> {{ result.h2_count }}</li>
           <li><strong>H3 Tags:</strong> {{ result.h3_count }}</li>
           <li><strong>Word Count:</strong> {{ result.word_count }}</li>
-          <li><strong>Total Images:</strong> {{ result.image_count }}</li>
-          <li><strong>Images Missing ALT:</strong> {{ result.missing_alt }}</li>
+          <li><strong>Images:</strong> {{ result.image_count }}</li>
+          <li><strong>Missing ALT tags:</strong> {{ result.missing_alt }}</li>
           <li><strong>Canonical URL:</strong> {{ result.canonical }}</li>
-          <li><strong>Robots Meta Tag:</strong> {{ result.robots }}</li>
+          <li><strong>Robots:</strong> {{ result.robots }}</li>
           <li><strong>Open Graph Title:</strong> {{ result.og_title }}</li>
           <li><strong>Twitter Card:</strong> {{ result.twitter_card }}</li>
         </ul>
 
         {% if result.top_keywords %}
-          <h3>🔤 Top Keywords</h3>
+          <h3>Top Keywords</h3>
           <ol>
             {% for word, count in result.top_keywords.items() %}
               <li>{{ word }} — {{ count }} times</li>
@@ -61,9 +60,9 @@
         {% endif %}
 
         {% if result.keyword_density %}
-          <h3>📏 Keyword Density</h3>
+          <h3>Keyword Density</h3>
           <ul>
-            <li><strong>Keyword:</strong> "{{ result.keyword_density.keyword }}"</li>
+            <li><strong>Keyword:</strong> {{ result.keyword_density.keyword }}</li>
             <li><strong>Occurrences:</strong> {{ result.keyword_density.count }}</li>
             <li><strong>Density:</strong> {{ result.keyword_density.percent }}%</li>
             <li><strong>In Title:</strong> {{ result.keyword_density.tags.title }}</li>
@@ -75,10 +74,9 @@
         {% endif %}
 
         {% if result.screenshot %}
-          <h3>🖼️ Page Screenshot</h3>
-          <img src="/{{ result.screenshot }}" alt="Screenshot" style="max-width:100%;border:1px solid #ccc;">
+          <h3>Page Screenshot</h3>
+          <img src="/{{ result.screenshot }}" alt="Screenshot" />
         {% endif %}
-
       {% endif %}
     {% endif %}
   </div>
