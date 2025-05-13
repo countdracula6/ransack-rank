@@ -1,80 +1,39 @@
 body {
-  background-color: #f9f9f9;
-  font-family: 'Segoe UI', sans-serif;
+  margin: 0;
+  font-family: system-ui, sans-serif;
+  background-color: #f4f4f4;
   color: #333;
-  padding: 40px;
-}
-
-h1 {
-  text-align: center;
-  color: #212529;
-  margin-bottom: 40px;
-}
-
-form {
-  display: flex;
-  justify-content: center;
-  gap: 10px;
-  margin-bottom: 30px;
-}
-
-input[type="text"] {
-  width: 400px;
-  padding: 10px;
-  font-size: 16px;
-  border: 1px solid #ccc;
-}
-
-button {
-  padding: 10px 20px;
-  background-color: #d63384;
-  color: white;
-  border: none;
-  font-weight: bold;
-  cursor: pointer;
-}
-
-button:hover {
-  background-color: #a61e63;
-}
-
-ul {
-  list-style: none;
-  padding-left: 0;
-  max-width: 600px;
-  margin: 0 auto;
-}
-
-li {
-  background: white;
-  margin: 8px 0;
-  padding: 10px 15px;
-  border-radius: 6px;
-  border: 1px solid #ddd;
 }
 
 .navbar {
-  background: #222;
+  background: #111;
   padding: 10px 20px;
+  position: sticky;
+  top: 0;
+  z-index: 100;
 }
 
 .nav-container {
   display: flex;
-  justify-content: space-between;
+  flex-wrap: wrap;
   align-items: center;
+  justify-content: space-between;
 }
 
 .nav-logo {
   color: #fff;
-  text-decoration: none;
   font-weight: bold;
   font-size: 20px;
+  text-decoration: none;
 }
 
 .nav-links {
   list-style: none;
   display: flex;
-  gap: 15px;
+  flex-wrap: wrap;
+  gap: 12px;
+  padding: 0;
+  margin: 0;
 }
 
 .nav-item {
@@ -83,19 +42,85 @@ li {
   font-size: 14px;
 }
 
-.nav-item.active, .nav-item:hover {
+.nav-item.active,
+.nav-item:hover {
   color: #fff;
   font-weight: bold;
 }
 
-.back-btn {
-  margin-top: 20px;
-  background: #eee;
-  border: none;
-  padding: 8px 16px;
-  cursor: pointer;
+.container {
+  max-width: 900px;
+  margin: 30px auto;
+  padding: 0 15px;
+}
+
+form {
+  margin-bottom: 30px;
+}
+
+input[type="text"] {
+  padding: 10px;
+  margin: 5px 0;
+  width: 100%;
+  max-width: 100%;
+  box-sizing: border-box;
   font-size: 14px;
 }
-.back-btn:hover {
-  background: #ddd;
+
+button {
+  padding: 10px 16px;
+  background: #222;
+  color: #fff;
+  border: none;
+  cursor: pointer;
+  font-size: 14px;
+  margin-top: 10px;
+}
+
+button:hover {
+  background: #444;
+}
+
+.back-btn {
+  margin: 20px 0;
+  background: #ccc;
+  color: #000;
+}
+
+.compare-form input {
+  margin-bottom: 10px;
+}
+
+.compare-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 20px;
+}
+
+.compare-card {
+  background: #fff;
+  padding: 20px;
+  border-radius: 8px;
+  box-shadow: 0 0 8px rgba(0, 0, 0, 0.1);
+}
+
+.compare-card h2 {
+  margin-top: 0;
+  font-size: 18px;
+}
+
+@media screen and (max-width: 768px) {
+  .compare-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .nav-container {
+    flex-direction: column;
+    align-items: flex-start;
+  }
+
+  .nav-links {
+    margin-top: 10px;
+    gap: 10px;
+  }
 }
