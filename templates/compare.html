@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Ransack-Rank | Compare</title>
+  <link rel="stylesheet" href="/static/style.css" />
+</head>
+<body>
+
+  <nav class="navbar">
+    <div class="nav-container">
+      <a href="/" class="nav-logo">Ransack-Rank</a>
+      <ul class="nav-links">
+        <li><a href="/" class="nav-item">Home</a></li>
+        <li><a href="/seo" class="nav-item">SEO Analyzer</a></li>
+        <li><a href="/compare" class="nav-item active">Compare</a></li>
+      </ul>
+    </div>
+  </nav>
+
+  <div class="container">
+    <h1>🆚 Competitor Comparison</h1>
+
+    <form method="POST" class="compare-form">
+      <input type="text" name="url1" placeholder="First URL (https://...)" required />
+      <input type="text" name="url2" placeholder="Second URL (https://...)" required />
+      <button type="submit">Compare</button>
+    </form>
+
+    {% if result1 and result2 %}
+      <div class="compare-grid">
+        <div class="compare-card">
+          <h2>Site 1</h2>
+          <ul>
+            <li><strong>Title:</strong> {{ result1.title }}</li>
+            <li><strong>Description:</strong> {{ result1.description }}</li>
+            <li><strong>H1 Tags:</strong> {{ result1.h1_count }}</li>
+            <li><strong>H2 Tags:</strong> {{ result1.h2_count }}</li>
+            <li><strong>H3 Tags:</strong> {{ result1.h3_count }}</li>
+            <li><strong>Word Count:</strong> {{ result1.word_count }}</li>
+            <li><strong>Images:</strong> {{ result1.image_count }}</li>
+            <li><strong>Missing ALT:</strong> {{ result1.missing_alt }}</li>
+          </ul>
+
+          {% if result1.top_keywords %}
+            <h4>Top Keywords</h4>
+            <ol>
+              {% for word, count in result1.top_keywords.items() %}
+                <li>{{ word }} — {{ count }}</li>
+              {% endfor %}
+            </ol>
+          {% endif %}
+        </div>
+
+        <div class="compare-card">
+          <h2>Site 2</h2>
+          <ul>
+            <li><strong>Title:</strong> {{ result2.title }}</li>
+            <li><strong>Description:</strong> {{ result2.description }}</li>
+            <li><strong>H1 Tags:</strong> {{ result2.h1_count }}</li>
+            <li><strong>H2 Tags:</strong> {{ result2.h2_count }}</li>
+            <li><strong>H3 Tags:</strong> {{ result2.h3_count }}</li>
+            <li><strong>Word Count:</strong> {{ result2.word_count }}</li>
+            <li><strong>Images:</strong> {{ result2.image_count }}</li>
+            <li><strong>Missing ALT:</strong> {{ result2.missing_alt }}</li>
+          </ul>
+
+          {% if result2.top_keywords %}
+            <h4>Top Keywords</h4>
+            <ol>
+              {% for word, count in result2.top_keywords.items() %}
+                <li>{{ word }} — {{ count }}</li>
+              {% endfor %}
+            </ol>
+          {% endif %}
+        </div>
+      </div>
+    {% endif %}
+  </div>
+
+</body>
+</html>
