@@ -1,29 +1,28 @@
+/* GENERAL RESET */
 body {
   margin: 0;
   font-family: system-ui, sans-serif;
-  background-color: #f4f4f4;
-  color: #333333;
+  background-color: #f7f7f7;
+  color: #333;
 }
 
+/* NAVBAR */
 .navbar {
-  background: #111;
-  padding: 10px 20px;
-  position: sticky;
-  top: 0;
-  z-index: 100;
+  background-color: #111;
+  padding: 12px 20px;
 }
 
 .nav-container {
   display: flex;
   flex-wrap: wrap;
-  align-items: center;
   justify-content: space-between;
+  align-items: center;
 }
 
 .nav-logo {
   color: #fff;
-  font-weight: bold;
   font-size: 20px;
+  font-weight: bold;
   text-decoration: none;
 }
 
@@ -31,9 +30,9 @@ body {
   list-style: none;
   display: flex;
   flex-wrap: wrap;
-  gap: 12px;
+  gap: 14px;
+  margin: 10px 0 0;
   padding: 0;
-  margin: 0;
 }
 
 .nav-item {
@@ -48,79 +47,81 @@ body {
   font-weight: bold;
 }
 
+/* CONTAINER */
 .container {
-  max-width: 900px;
-  margin: 30px auto;
-  padding: 0 15px;
+  max-width: 960px;
+  margin: 20px auto;
+  padding: 0 16px;
 }
 
+/* FORMS */
 form {
-  margin-bottom: 30px;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  margin-bottom: 24px;
 }
 
 input[type="text"] {
   padding: 10px;
-  margin: 5px 0;
-  width: 100%;
-  max-width: 100%;
-  box-sizing: border-box;
   font-size: 14px;
+  width: 100%;
+  box-sizing: border-box;
 }
 
 button {
-  padding: 10px 16px;
+  padding: 10px;
+  font-size: 14px;
   background: #222;
-  color: #fff;
+  color: white;
   border: none;
   cursor: pointer;
-  font-size: 14px;
-  margin-top: 10px;
 }
 
 button:hover {
   background: #444;
 }
 
+/* BACK BUTTON */
 .back-btn {
   margin: 20px 0;
-  background: #ccc;
+  background: #ddd;
   color: #000;
 }
 
-.compare-form input {
-  margin-bottom: 10px;
-}
-
+/* COMPARE LAYOUT */
 .compare-grid {
   display: grid;
-  grid-template-columns: 1fr 1fr;
+  grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
   gap: 20px;
 }
 
 .compare-card {
-  background: #fff;
+  background: white;
   padding: 20px;
+  border: 1px solid #ccc;
   border-radius: 8px;
-  box-shadow: 0 0 8px rgba(0, 0, 0, 0.1);
+  box-shadow: 0 2px 6px rgba(0,0,0,0.1);
 }
 
 .compare-card h2 {
   margin-top: 0;
-  font-size: 18px;
+  font-size: 16px;
 }
 
-@media screen and (max-width: 768px) {
-  .compare-grid {
-    grid-template-columns: 1fr;
-  }
-
+/* RESPONSIVE HELPERS */
+@media screen and (max-width: 600px) {
   .nav-container {
     flex-direction: column;
     align-items: flex-start;
   }
 
   .nav-links {
-    margin-top: 10px;
-    gap: 10px;
+    flex-direction: column;
+    gap: 6px;
+  }
+
+  .container {
+    padding: 0 10px;
   }
 }
