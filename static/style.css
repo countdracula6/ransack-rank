@@ -1,9 +1,25 @@
-/* GENERAL RESET */
+/* RESET + BASE */
 body {
   margin: 0;
-  font-family: system-ui, sans-serif;
-  background-color: #f7f7f7;
-  color: #333;
+  font-family: "Segoe UI", Roboto, sans-serif;
+  background-color: #f8f9fa;
+  color: #212529;
+  font-size: 16px;
+  line-height: 1.6;
+}
+
+a {
+  color: inherit;
+  text-decoration: none;
+}
+
+h1, h2, h3, h4 {
+  margin-top: 1em;
+  margin-bottom: 0.5em;
+}
+
+ul {
+  padding-left: 20px;
 }
 
 /* NAVBAR */
@@ -20,97 +36,119 @@ body {
 }
 
 .nav-logo {
-  color: #fff;
-  font-size: 20px;
+  font-size: 22px;
   font-weight: bold;
-  text-decoration: none;
+  color: #fff;
 }
 
 .nav-links {
-  list-style: none;
   display: flex;
   flex-wrap: wrap;
-  gap: 14px;
-  margin: 10px 0 0;
+  gap: 12px;
+  list-style: none;
+  margin: 0;
   padding: 0;
 }
 
 .nav-item {
-  color: #ccc;
-  text-decoration: none;
   font-size: 14px;
+  color: #ccc;
 }
 
 .nav-item.active,
 .nav-item:hover {
   color: #fff;
-  font-weight: bold;
 }
 
 /* CONTAINER */
 .container {
   max-width: 960px;
-  margin: 20px auto;
-  padding: 0 16px;
+  margin: 30px auto;
+  padding: 0 20px;
 }
 
 /* FORMS */
 form {
+  margin: 24px 0;
   display: flex;
   flex-direction: column;
   gap: 10px;
-  margin-bottom: 24px;
 }
 
 input[type="text"] {
-  padding: 10px;
-  font-size: 14px;
-  width: 100%;
+  padding: 12px;
+  font-size: 16px;
+  border: 1px solid #ccc;
+  border-radius: 6px;
   box-sizing: border-box;
+  width: 100%;
 }
 
 button {
-  padding: 10px;
-  font-size: 14px;
+  padding: 12px;
+  font-size: 16px;
   background: #222;
   color: white;
   border: none;
+  border-radius: 6px;
   cursor: pointer;
+  width: 100%;
+  max-width: 300px;
 }
 
 button:hover {
   background: #444;
 }
 
-/* BACK BUTTON */
 .back-btn {
-  margin: 20px 0;
-  background: #ddd;
+  background: #e2e6ea;
   color: #000;
+  margin-top: 20px;
 }
 
-/* COMPARE LAYOUT */
+/* COMPARE GRID */
 .compare-grid {
   display: grid;
   grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
-  gap: 20px;
+  gap: 24px;
+  margin-top: 20px;
 }
 
 .compare-card {
-  background: white;
+  background-color: #fff;
+  border-radius: 10px;
+  box-shadow: 0 2px 8px rgba(0,0,0,0.08);
   padding: 20px;
-  border: 1px solid #ccc;
-  border-radius: 8px;
-  box-shadow: 0 2px 6px rgba(0,0,0,0.1);
+  transition: box-shadow 0.2s ease;
+}
+
+.compare-card:hover {
+  box-shadow: 0 4px 12px rgba(0,0,0,0.15);
 }
 
 .compare-card h2 {
+  font-size: 18px;
   margin-top: 0;
-  font-size: 16px;
 }
 
-/* RESPONSIVE HELPERS */
-@media screen and (max-width: 600px) {
+.compare-card ul {
+  margin: 0;
+  padding-left: 20px;
+}
+
+.compare-card ol {
+  padding-left: 20px;
+}
+
+/* IMAGE */
+img {
+  max-width: 100%;
+  border-radius: 8px;
+  margin-top: 10px;
+}
+
+/* RESPONSIVE NAV */
+@media screen and (max-width: 768px) {
   .nav-container {
     flex-direction: column;
     align-items: flex-start;
@@ -118,10 +156,15 @@ button:hover {
 
   .nav-links {
     flex-direction: column;
-    gap: 6px;
+    gap: 8px;
+    margin-top: 10px;
   }
 
   .container {
-    padding: 0 10px;
+    padding: 0 12px;
+  }
+
+  button {
+    width: 100%;
   }
 }
